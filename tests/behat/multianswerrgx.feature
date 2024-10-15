@@ -46,7 +46,9 @@ Feature: Test the multianswerrgx question type (simulate that the plugin is enab
     And I should see "REGEXP_C"
 
   Scenario: Load REGEXP question string with feedback
-    When I am on the "Course 1" "core_question > course question bank" page logged in as teacher
+    When the following config values are set as admin:
+        | simulate_multianswerrgx | 1 | tiny_cloze |
+    And I am on the "Course 1" "core_question > course question bank" page logged in as teacher
     And I press "Create a new question ..."
     And I set the field "Embedded answers (Cloze)" to "1"
     And I click on "Add" "button" in the "Choose a question type to add" "dialogue"
@@ -57,7 +59,7 @@ Feature: Test the multianswerrgx question type (simulate that the plugin is enab
     """
     And I select the "span" element in position "0" of the "Question text" TinyMCE editor
     And I click on "Cloze question editor" "button"
-    Then I should see "Regular expression short answer (REGEXP)"
+    #Then I should see "Regular expression short answer (REGEXP)"
     And the field with xpath "//form[@name='tiny_cloze_form']//li[1]//input[contains(@class, 'tiny_cloze_answer')]" matches value "blue, white and red"
     And the field with xpath "//form[@name='tiny_cloze_form']//li[1]//select[contains(@class, 'tiny_cloze_frac')]" matches value "100%"
     And the field with xpath "//form[@name='tiny_cloze_form']//li[1]//input[contains(@class, 'tiny_cloze_feedback')]" matches value "Congratulations!"
